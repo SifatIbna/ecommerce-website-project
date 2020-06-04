@@ -17,16 +17,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 
 from products.views import (
-    ProductListView, 
     product_list_view, 
     ProductdetailView, 
     product_detail_view,
     ProductFeaturedListView,
     ProductFeaturedDetailView,
-    ProductDetailSlugView
     )
 
 from .views import (
@@ -43,10 +41,10 @@ urlpatterns = [
     path('register/',register_page),
     path('featured/', ProductFeaturedListView.as_view()),
     path('featured/<int:pk>/', ProductFeaturedDetailView.as_view()),
-    path('product/', ProductListView.as_view()),
+    path('', include("products.urls")),
     path('product-fbv/', product_list_view),
     #path('product/<int:pk>/', ProductdetailView.as_view()),
-    path('product/<slug:slug>/', ProductDetailSlugView.as_view()),
+    #path('product/<slug:slug>/', ProductDetailSlugView.as_view()),
     path('product-fbv/<int:pk>/', product_detail_view),
     path('admin/', admin.site.urls),
 ]

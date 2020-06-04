@@ -1,6 +1,8 @@
 import random, os
 from django.db import models
+from django.db.models.signals import pre_save,post_save
 
+from .utils import unique_slug_generator
 # Create your models here.
 
 # Every time change model field run python manage.py makemigrations
@@ -28,7 +30,7 @@ class ProductQuerySet(models.query.QuerySet): #CUSTOM QUERY SET
         return self.filter(featured=True)
     def active(self):
         return self.filter(active=True)
-        
+
 class ProductManager(models.Manager):
        
     def get_queryset(self):
@@ -48,6 +50,7 @@ class ProductManager(models.Manager):
 
 class Product(models.Model):
     title          = models.CharField(max_length=120)
+    slug           = models.SlugField(blank=True, unique = True)
     description    = models.TextField()
     price          = models.DecimalField(max_digits=19, decimal_places=10, default = 39.99)
     image          = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
@@ -59,3 +62,8 @@ class Product(models.Model):
     def __str__(self):
         return self.title
     
+def product_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+pre_save.connect(product_pre_save_receiver, sender = Product)

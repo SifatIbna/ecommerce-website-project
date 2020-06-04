@@ -24,11 +24,20 @@ def upload_image_path(instace, filename):
             final_filename = final_filename,
             )
 
+class ProductManager(models.Manager):
+    def get_by_id(self,id):
+        qs = self.get_queryset().filter(id=id)
+        if qs.count() == 1 :
+            return qs.first()
+        return None
+
 class Product(models.Model):
     title          = models.CharField(max_length=120)
     description    = models.TextField()
     price          = models.DecimalField(max_digits=19, decimal_places=10, default = 39.99)
     image          = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+
+    objects = ProductManager()
 
     def __str__(self):
         return self.title

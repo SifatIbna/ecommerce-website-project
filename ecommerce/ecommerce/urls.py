@@ -35,17 +35,17 @@ from .views import (
     )
 
 urlpatterns = [
-    path('', contact_page),
-    path('home/', home_page),
-    path('login/',login_page),
-    path('register/',register_page),
-    path('featured/', ProductFeaturedListView.as_view()),
-    path('featured/<int:pk>/', ProductFeaturedDetailView.as_view()),
+    path('', home_page, name = 'home'),
+    path('contact/', contact_page,name='contact'),
+    path('login/',login_page,name='login'),
+    path('register/',register_page,name='register'),
+    #path('featured/', ProductFeaturedListView.as_view()),
+    #path('featured/<int:pk>/', ProductFeaturedDetailView.as_view()),
     path('products/', include(("products.urls","products"),namespace='products')),
-    path('product-fbv/', product_list_view),
+    #path('product-fbv/', product_list_view),
     #path('product/<int:pk>/', ProductdetailView.as_view()),
     #path('product/<slug:slug>/', ProductDetailSlugView.as_view()),
-    path('product-fbv/<int:pk>/', product_detail_view),
+    #path('product-fbv/<int:pk>/', product_detail_view),
     path('admin/', admin.site.urls),
 ]
 

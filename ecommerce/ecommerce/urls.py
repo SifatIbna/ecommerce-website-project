@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import path,include
+from django.views.generic import TemplateView
 
 from products.views import (
     product_list_view, 
@@ -35,6 +36,8 @@ from .views import (
     )
 
 urlpatterns = [
+    path('bootstrap/',TemplateView.as_view(template_name='bootstrap/example.html')),
+
     path('', home_page, name = 'home'),
     path('contact/', contact_page,name='contact'),
     path('login/',login_page,name='login'),

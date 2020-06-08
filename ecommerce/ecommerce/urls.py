@@ -45,6 +45,8 @@ urlpatterns = [
     #path('featured/', ProductFeaturedListView.as_view()),
     #path('featured/<int:pk>/', ProductFeaturedDetailView.as_view()),
     path('products/', include(("products.urls","products"),namespace='products')),
+    path('search/', include(("search.urls","search"),namespace='search')),
+
     #path('product-fbv/', product_list_view),
     #path('product/<int:pk>/', ProductdetailView.as_view()),
     #path('product/<slug:slug>/', ProductDetailSlugView.as_view()),

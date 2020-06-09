@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 
+
 from products.models import Product
 # Create your views here.
 
@@ -21,7 +22,7 @@ class SearchProductView(ListView):
         query = request.GET.get('q',None)
 
         if query is not None:
-            return Product.objects.filter(title__icontains=query)
+          return Product.objects.search(query)
         return Product.objects.features()
 
 

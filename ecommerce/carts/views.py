@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 # Create your views here.
 from .models import Cart
+from products.models import Product
 
 ''' def cart_create(user=None):
     cart_obj = Cart.objects.create(user=None)
@@ -64,3 +65,19 @@ def cart_home(request):
 
 
     #'session_key', 'set_expiry'
+
+
+def cart_update(request):
+    product_id  =1
+    product_obj = Product.objects.get(id=product_id)
+    cart_obj, new_obj = Cart.objects.new_or_get(request)
+    
+    if product_obj in cart_obj.products.all():
+        cart_obj.products.remove(product_obj)
+    else:
+        cart_obj.products.add(product_obj)
+
+    #return redirect(product_obj.get_absolute_url())
+    return redirect("cart:home")
+
+        

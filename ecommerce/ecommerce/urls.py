@@ -20,6 +20,8 @@ from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import TemplateView
 
+from carts.views import cart_home
+
 from products.views import (
     product_list_view, 
     ProductdetailView, 
@@ -42,16 +44,15 @@ urlpatterns = [
     path('contact/', contact_page,name='contact'),
     path('login/',login_page,name='login'),
     path('register/',register_page,name='register'),
-    #path('featured/', ProductFeaturedListView.as_view()),
-    #path('featured/<int:pk>/', ProductFeaturedDetailView.as_view()),
     path('products/', include(("products.urls","products"),namespace='products')),
     path('search/', include(("search.urls","search"),namespace='search')),
 
-    #path('product-fbv/', product_list_view),
-    #path('product/<int:pk>/', ProductdetailView.as_view()),
-    #path('product/<slug:slug>/', ProductDetailSlugView.as_view()),
-    #path('product-fbv/<int:pk>/', product_detail_view),
+  
     path('admin/', admin.site.urls),
+
+    path('cart/',cart_home,name='cart'),
+
+
 ]
 
 if settings.DEBUG:

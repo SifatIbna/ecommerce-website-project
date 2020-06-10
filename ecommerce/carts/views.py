@@ -11,8 +11,17 @@ from .models import Cart
 
 def cart_home(request):
     #del request.session['cart_id']
-    cart_obj = Cart.objects.new_or_get(request)
-    
+    cart_obj, new_obj = Cart.objects.new_or_get(request)
+
+    products = cart_obj.products.all()
+    total = 0
+
+    for x in products:
+        total += x.price
+
+    print(total)
+
+    return render(request,"carts/home.html",{}) 
     ''' cart_id = request.session.get("cart_id",None)
 
     if cart_id is None:
@@ -35,7 +44,7 @@ def cart_home(request):
         cart_obj = Cart.objects.new(user=request.user)
         request.session['cart_id'] = cart_obj.id '''
 
-    return render(request,"carts/home.html",{}) 
+    
 
 
     # print(request.session)

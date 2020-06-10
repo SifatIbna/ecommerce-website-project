@@ -65,7 +65,7 @@ def m2m_pre_save_receiver(sender, instance,action,*args, **kwargs):
         products = instance.products.all()
         total = 0
         for x in products:
-            total += x.price
+            total += int(float(x.price))
         print(total)
         instance.subtotal = total
         instance.save()

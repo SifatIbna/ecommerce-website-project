@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate, login, get_user_model
 from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
+
+    #print(request.session.get("first_name","Unknown")) #GET
+    # print(request.session.get("user","Unknown"))
     context = {
         "title" : "Hello World!",
         "content" : "Welcome to the homepage",
@@ -12,7 +15,7 @@ def home_page(request):
     }
     if request.user.is_authenticated:
         context["premium_content"]= "YEAHH"
-        print(context["premium_content"])
+        #print(context["premium_content"])
 
     return render(request,'home_page.html',context)
 

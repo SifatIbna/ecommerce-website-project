@@ -14,12 +14,9 @@
 
         </div>
         <div class='col-12 col-md-6'>
+            {% include 'products/snippets/update-cart.html' with product=object cart=cart%}
+
             
-            {% if object in cart.products.all %}
-                In cart <button class='btn btn-link'> Remove? </Remove>
-            {% else %}
-                <button class='btn btn-success'> Add to cart  </Remove>
-            {% endif %}
         </div>
     </div>
 

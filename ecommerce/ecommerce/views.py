@@ -58,7 +58,7 @@ def login_page(request):
         if user is not None:
             login(request, user)
         # Redirect to a success page.
-            return redirect("/home")
+            
         else:
         # Return an 'invalid login' error message.
             print("Error")

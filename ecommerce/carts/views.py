@@ -11,14 +11,15 @@ from .models import Cart
 
 def cart_home(request):
     #del request.session['cart_id']
+    cart_obj = Cart.objects.new_or_get(request)
+    
+    ''' cart_id = request.session.get("cart_id",None)
 
-    cart_id = request.session.get("cart_id",None)
-
-    ''' if cart_id is None:
+    if cart_id is None:
         cart_obj = cart_create()
         request.session['cart_id'] = cart_obj.id 
         
-    else: '''
+    else:
 
     qs = Cart.objects.filter(id=cart_id)
     if qs.count() == 1:
@@ -32,9 +33,9 @@ def cart_home(request):
 
     else:
         cart_obj = Cart.objects.new(user=request.user)
-        request.session['cart_id'] = cart_obj.id
+        request.session['cart_id'] = cart_obj.id '''
 
-    return render(request,"carts/home.html",{})
+    return render(request,"carts/home.html",{}) 
 
 
     # print(request.session)

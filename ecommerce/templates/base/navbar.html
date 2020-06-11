@@ -2,6 +2,8 @@
 {% url 'contact' as contact_page%}
 {% url 'products:list' as products_list %}
 {% url 'login' as login %}
+{% url 'logout' as logout_url %}
+
 {% url 'cart:home' as cart_url %}
 
 <!-- -->
@@ -23,6 +25,9 @@
       </li>
       <li class="nav-item {% if request.path == login %} active {% endif%}">
         <a class="nav-link" href="{{ login }}">Log IN </a>
+      </li>
+      <li class="nav-item {% if request.path == logout_url %} active {% endif%}">
+        <a class="nav-link" href="{{ logout_url }}">Log Out </a>
       </li>
       <li class="nav-item {% if request.path == contact_page %} active {% endif%}">
         <a class="nav-link" href="{{ contact_page }}">Contact</a>

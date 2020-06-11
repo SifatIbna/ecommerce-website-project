@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 
 # Create your views here.
+
+from orders.models import Order
 from .models import Cart
 from products.models import Product
 
@@ -15,56 +17,6 @@ def cart_home(request):
     cart_obj, new_obj = Cart.objects.new_or_get(request)
     return render(request,"carts/home.html",{'cart':cart_obj}) 
 
-    ''' products = cart_obj.products.all()
-    total = 0
-
-    for x in products:
-        total += x.price
-
-    print(total) '''
-
-    ''' cart_id = request.session.get("cart_id",None)
-
-    if cart_id is None:
-        cart_obj = cart_create()
-        request.session['cart_id'] = cart_obj.id 
-        
-    else:
-
-    qs = Cart.objects.filter(id=cart_id)
-    if qs.count() == 1:
-        cart_obj = qs.first()
-        
-        if request.user.is_authenticated and cart_obj.user is None:
-            cart_obj.user = request.user
-            cart_obj.save()
-
-        #redundant if cases, cause we did it in models.py
-
-    else:
-        cart_obj = Cart.objects.new(user=request.user)
-        request.session['cart_id'] = cart_obj.id '''
-
-    
-
-
-    # print(request.session)
-    # print(dir(request.session))
-
-    # request.session.set_expiry(300) # 5 minutes
-    # request.session.session_key
-
-    # key = request.session.session_key
-    # print(key)
-
-    # request.session['first_name'] = "Sifat" # SET
-    # request.session['user'] = request.user # will show error because in session you can not save objects but
-    # request.session['user'] = request.user.username # is okay cause it only saving string
-
-    
-
-
-    #'session_key', 'set_expiry'
 
 
 def cart_update(request):
@@ -90,3 +42,14 @@ def cart_update(request):
         #return redirect(product_obj.get_absolute_url())
         request.session['cart_items'] = cart_obj.products.count()
     return redirect("cart:home")   
+
+
+def checkout_home(request):
+    cart_obj, cart_created = Cart.objects.new_or_get(request)
+    order_obj = None
+    if cart_created or cart_obj.products.count() == 0:
+        return redirect("cart:home")
+    else:
+        order_obj, new_obj = Order.objects.get_or_create(cart=cart_obj)
+
+    return render(request,"carts/checkout.html", {"object": order_obj})

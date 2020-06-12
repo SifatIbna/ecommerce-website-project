@@ -12,6 +12,9 @@
 </div>
 <div class='col-12 col-md-6'>
     Continue as Guest
+    {% url "guest_login" as login_guest_url %}
+    
+    {% include 'accounts/snippets/form.html' with form=guest_form next_url=request.build_absolute_uri action_url=login_guest_url %}
 </div>
 </div>
 {% else %}

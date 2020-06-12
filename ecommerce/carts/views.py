@@ -5,8 +5,9 @@ from django.shortcuts import render,redirect
 from orders.models import Order
 from .models import Cart
 from products.models import Product
-from accounts.forms import LoginForm
+from accounts.forms import LoginForm,GuestForm
 from billing.models import BillingProfile
+from accounts.models import GuestEmail
 
 ''' def cart_create(user=None):
     cart_obj = Cart.objects.create(user=None)
@@ -22,7 +23,7 @@ def cart_home(request):
 
 
 def cart_update(request):
-    print("Here")
+    # print("Here")
     print(request.POST)
 
     product_id  = request.POST.get('id',None)
@@ -56,16 +57,25 @@ def checkout_home(request):
 
     user = request.user
     billing_profile = None
+
     login_form = LoginForm()
+    guest_form = GuestForm()
+    guest_email_id = request.session.get('guest_email_id')
 
     if user.is_authenticated:
         billing_profile, billing_profile_created = BillingProfile.objects.get_or_create(
-                                                    user=user, 
-                                                    email=user.email)
-    
+                                                    user=user, email = user.email) 
+    elif guest_email_id is not None:
+        guest_email_obj = GuestEmail.objects.get(id=guest_email_id)
+        billing_profile, billing_profile_created = BillingProfile.objects.get_or_create(
+                                            email=guest_email_obj.email)
+    else:
+        pass
+
     context = {
         "object": order_obj,
         "billing_profile": billing_profile,
         "login_form": login_form,
+        "guest_form": guest_form,
     }
     return render(request,"carts/checkout.html", context)

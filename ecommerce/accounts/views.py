@@ -16,12 +16,15 @@ def login_page(request):
         "form" : form
     }
 
-    next_ = request.GET.get('next')
+    print(request.POST)
+    print(request.GET)
+    
     next_post = request.POST.get('next')
+    next_ = request.GET.get('next')
     redirect_path = next_ or next_post
 
     print(next_)
-    print(next_post)
+    #print(next_post)
 
     if form.is_valid():
         print(form.cleaned_data)

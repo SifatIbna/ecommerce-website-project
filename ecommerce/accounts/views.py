@@ -61,7 +61,7 @@ def login_page(request):
     
     next_post = request.POST.get('next')
     next_ = request.GET.get('next')
-    redirect_path = next_ or next_post
+    redirect_path = next_ or next_post or None
 
     print(next_)
     #print(next_post)

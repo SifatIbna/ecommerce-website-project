@@ -35,7 +35,7 @@ def cart_update(request):
     
     if product_id is not None:
         try:
-            print("here")
+            
             product_obj = Product.objects.get(id=product_id)
         except Product.DoesNotExist:
             return redirect("cart:home")

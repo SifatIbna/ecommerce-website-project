@@ -14,6 +14,41 @@
     <div class='container'>
       {% block content %}{% endblock %}
     </div>
+
+
     {% include 'base/js.html' %}
+
+    <script>
+      $(document).ready(function(){
+        var productForm = $(".form-product-ajax")
+
+        productForm.submit(function(event){
+          event.preventDefault()
+          console.log("Form is not sending")
+
+          var thisForm = $(this)
+
+          var actionEndpoint = thisForm.attr("action");
+          
+          var httpMethod = thisForm.attr("method");
+          var formData = thisForm.serialize();
+
+          $.ajax({
+            url : actionEndpoint,
+            method: httpMethod,
+            data: formData,
+            success : function(data) {
+              console.log("Success")
+              console.log(data)
+            },
+            error :function(errorData){
+              console.log("Error")
+              console.log(errorData)
+            }
+          })
+
+        })
+      })
+    </script>
   </body>
 </html>

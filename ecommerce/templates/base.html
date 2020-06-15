@@ -38,7 +38,7 @@
             method: httpMethod,
             data: formData,
             success : function(data) {
-              
+              //console.log(data)
               var submitSpan = thisForm.find(".submit-span")
 
               if (data.added){
@@ -49,6 +49,10 @@
                 submitSpan.html("<button type='submit' class='btn btn-success'> Add to cart  </button>")
               }
               //console.log(submitSpan.html())
+
+              var navbarCount = $(".navbar-cart-count")
+              navbarCount.text(data.cartItem)
+              //console.log(navbarCount)
             },
 
             error :function(errorData){
@@ -58,7 +62,7 @@
           })
 
         })
-        
+
       })
     </script>
   </body>

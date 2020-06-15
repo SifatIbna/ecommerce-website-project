@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render,redirect
 
 # Create your views here.
@@ -28,11 +29,10 @@ def cart_home(request):
 
 
 def cart_update(request):
-    # print("Here")
-    print(request.POST)
-
+    
+    added = True
     product_id  = request.POST.get('id',None)
-    print(product_id)
+    
     if product_id is not None:
         try:
             print("here")
@@ -44,11 +44,21 @@ def cart_update(request):
 
         if product_obj in cart_obj.products.all():
             cart_obj.products.remove(product_obj)
+            added = False
         else:
             cart_obj.products.add(product_obj)
 
         #return redirect(product_obj.get_absolute_url())
         request.session['cart_items'] = cart_obj.products.count()
+
+        if request.is_ajax():
+            print("Ajax Request")
+            json_data = {
+                "added" : added,
+                "removed" : not added,
+            }
+            return  JsonResponse(json_data)
+
     return redirect("cart:home")   
 
 

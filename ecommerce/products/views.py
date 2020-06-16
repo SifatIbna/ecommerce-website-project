@@ -31,6 +31,13 @@ class ProductListView(ListView):
         print(context)
 
         return context '''
+
+    def get_context_data(self,*args,**kwargs):
+        context = super(ProductListView,self).get_context_data(*args,**kwargs)
+        context["cart"], new_obj = Cart.objects.new_or_get(self.request)
+        #print(context["cart"])
+        return context
+
     def get_queryset(self, *args, **kwargs):
         request = self.request
         return Product.objects.all()
@@ -50,7 +57,7 @@ class ProductDetailSlugView(DetailView):
     def get_context_data(self,*args,**kwargs):
         context = super(ProductDetailSlugView,self).get_context_data(*args,**kwargs)
         context["cart"], new_obj = Cart.objects.new_or_get(self.request)
-        print(context["cart"])
+        #print(context["cart"])
         return context
     
     def get_object(self,*args,**kwargs):

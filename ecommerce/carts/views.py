@@ -59,8 +59,8 @@ def cart_update(request):
                 "cartItem":cart_obj.products.count(),
             }
             #print(json_data["cartItemCount"])
-            return  JsonResponse(json_data)
-
+            #return  JsonResponse({"message":"Error 404"},status_code = 400)
+            return JsonResponse(json_data)
     return redirect("cart:home")   
 
 

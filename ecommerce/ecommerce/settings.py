@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'addresses',
 ]
 
+AUTH_USER_MODEL = 'accounts.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -87,7 +89,7 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'products',
+        'NAME': 'ecommerce',
         'USER':'postgres',
         'PASSWORD':'Sifat@5347', #put your password here
         'HOST':'localhost',

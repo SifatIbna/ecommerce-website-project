@@ -1,0 +1,58 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "title": "shirt",
+        "slug": "shirt",
+        "description": "New Shirt",
+        "price": "39.9900000000",
+        "image": "products/9081524/9081524.png",
+        "featured": true,
+        "active": true,
+        "timestamp": "2020-06-07T11:53:33.681Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "title": "V-neck",
+        "slug": "v-neck",
+        "description": "V-neck t shirt",
+        "price": "39.9900000000",
+        "image": "products/Screenshot_from_2020-06-04_20-52-57.png",
+        "featured": true,
+        "active": true,
+        "timestamp": "2020-06-07T11:53:33.681Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "title": "Jeans",
+        "slug": "jeans",
+        "description": "Jeans Pant",
+        "price": "39.9900000000",
+        "image": "products/8836879/8836879.png",
+        "featured": true,
+        "active": true,
+        "timestamp": "2020-06-07T11:53:33.681Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+        "title": "pants",
+        "slug": "pants",
+        "description": "Jeans and Short pants",
+        "price": "39.9900000000",
+        "image": "",
+        "featured": false,
+        "active": true,
+        "timestamp": "2020-06-07T11:53:33.681Z"
+    }
+}
+]

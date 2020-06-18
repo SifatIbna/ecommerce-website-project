@@ -55,7 +55,7 @@ class GuestForm(forms.Form):
     email       = forms.EmailField()
 
 class LoginForm(forms.Form):
-    username = forms.EmailField(label='Email')
+    email = forms.EmailField(label='Email')
     password = forms.CharField(widget = forms.PasswordInput)
 
 class RegisterForm(forms.ModelForm):

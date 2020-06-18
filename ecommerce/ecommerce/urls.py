@@ -31,7 +31,7 @@ from products.views import (
     ProductFeaturedDetailView,
     )
 
-from accounts.views import login_page,register_page,guest_login_page
+from accounts.views import LoginView,RegisterView,guest_login_page
 
 from .views import (
     home_page, 
@@ -44,12 +44,12 @@ urlpatterns = [
     path('', home_page, name = 'home'),
     path('contact/', contact_page,name='contact'),
 
-    path('login/',login_page,name='login'),
+    path('login/',LoginView.as_view(),name='login'),
     path('login/guest/',guest_login_page,name='guest_login'),
 
     path('logout/',LogoutView.as_view(),name='logout'),
     
-    path('register/',register_page,name='register'),
+    path('register/',RegisterView.as_view(),name='register'),
     path('product/', include(("products.urls","products"),namespace='products')),
     path('search/', include(("search.urls","search"),namespace='search')),
 

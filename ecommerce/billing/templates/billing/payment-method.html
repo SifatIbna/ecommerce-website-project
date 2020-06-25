@@ -110,9 +110,17 @@ else if(paymentForm.length == 1) {
     // Submit the form
     form.submit();
   }
+  function redirectToNext(next_url,time) {
+    if (next_url){
+      setTImeout(function(){
+        window.location.href = next_url
+      },time)
+    }
+  }
 
   function stripeTokenHandler(token,next_url) {
-      console.log(token.id)
+      // console.log(token.id)
+      // console.log(next_url);
       var paymentMethodEndPoint = '/billing/payment-method/create/'
       data  = {
         'token': token.id,
@@ -123,12 +131,20 @@ else if(paymentForm.length == 1) {
         method : "POST",
         success : function(data){
           //console.log(data)
-          if (next_url){
-            window.location.href = next_url
-          } else {
-
-            window.location.reload()
+          var successMsg = data.message || "Success ! Your card was added"
+          card.clear()
+          console.log(next_url)
+          if(next_url) {
+            successMsg = successMsg + "<br/><br/><i class='fa fa-spin fa-spiner'/> Redirecting ... "
           }
+
+          if($.alert){
+            $.alert(successMsg)
+          } else {
+            alert(successMsg)
+          }
+
+          redirectToNext(next_url,1500)
         },
         error : function(error){
           console.log(error)

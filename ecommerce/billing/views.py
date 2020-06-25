@@ -9,7 +9,7 @@ STRIPE_PUB_KEY = "pk_test_9pAQ7JPwLjnznK5POcjwbFum00nm9g0F5T"
 def payment_method_view(request):
     next_url = None
 
-    next_post = request.POST.get('next')
+    next_post = request.GET.get('next')
 
     if is_safe_url(next_post, request.get_host()):
         next_url = next_post

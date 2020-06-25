@@ -13,6 +13,10 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 
+<!-- Js Render -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.6/jsrender.min.js"></script>
+{% include 'base/js_templates.html' %}
 
 <!-- eCommerce custom csrf script-->
 
@@ -21,3 +25,7 @@
 <!-- eCommerce custom static script -->
 
 <script src = '{% static "js/eCommerce.js" %}'></script>
+
+<!-- E commerce main js -->
+
+<script src = '{% static "js/eCommerce.main.js" %}'></script>

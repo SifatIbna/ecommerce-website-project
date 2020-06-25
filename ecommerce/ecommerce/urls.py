@@ -23,11 +23,11 @@ from django.contrib.auth.views import LogoutView
 
 from addresses.views import checkout_address_create_view,checkout_address_reuse_view
 
-from billing.views import payment_method_view
+from billing.views import payment_method_view,payment_method_createview
 
 from products.views import (
-    product_list_view, 
-    ProductdetailView, 
+    product_list_view,
+    ProductdetailView,
     product_detail_view,
     ProductFeaturedListView,
     ProductFeaturedDetailView,
@@ -36,7 +36,7 @@ from products.views import (
 from accounts.views import LoginView,RegisterView,guest_login_page
 
 from .views import (
-    home_page, 
+    home_page,
     contact_page,
     )
 
@@ -50,12 +50,12 @@ urlpatterns = [
     path('login/guest/',guest_login_page,name='guest_login'),
 
     path('logout/',LogoutView.as_view(),name='logout'),
-    
+
     path('register/',RegisterView.as_view(),name='register'),
     path('product/', include(("products.urls","products"),namespace='products')),
     path('search/', include(("search.urls","search"),namespace='search')),
 
-  
+
     path('admin/', admin.site.urls),
 
     #path('cart/',cart_home,name='cart'),
@@ -63,7 +63,8 @@ urlpatterns = [
     path('checkout/address/create/',checkout_address_create_view,name='checkout_address_create'),
     path('checkout/address/reuse/',checkout_address_reuse_view,name='checkout_address_reuse'),
 
-    path('billing/payment-method', payment_method_view,name='billing-payment-method'),
+    path('billing/payment-method/', payment_method_view,name='billing-payment-method'),
+    path('billing/payment-method/create/', payment_method_createview,name='billing-payment-method-endpoint'),
 
 
 ]

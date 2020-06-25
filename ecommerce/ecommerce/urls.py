@@ -23,6 +23,8 @@ from django.contrib.auth.views import LogoutView
 
 from addresses.views import checkout_address_create_view,checkout_address_reuse_view
 
+from billing.views import payment_method_view
+
 from products.views import (
     product_list_view, 
     ProductdetailView, 
@@ -60,6 +62,8 @@ urlpatterns = [
     path('cart/', include(("carts.urls","carts"),namespace='cart')),
     path('checkout/address/create/',checkout_address_create_view,name='checkout_address_create'),
     path('checkout/address/reuse/',checkout_address_reuse_view,name='checkout_address_reuse'),
+
+    path('billing/payment-method', payment_method_view,name='billing-payment-method'),
 
 
 ]

@@ -16,7 +16,7 @@ $(document).ready(function(){
 
 
   var paymentForm = $(".payment-form")
-
+  console.log(paymentForm)
   if (paymentForm.length > 1) {
     alert("Only one payment is allowed per page")
     paymentForm.css('display','none')
@@ -25,7 +25,7 @@ $(document).ready(function(){
   else if(paymentForm.length == 1) {
 
     var pubId = paymentForm.attr("data-token")
-    var next_url = paymentForm.attr("data-next-url")
+    var next_url = paymentForm.attr("next-url")
 
     var stripe = Stripe(pubId);
 
@@ -98,7 +98,7 @@ $(document).ready(function(){
     }
     function redirectToNext(next_url,time) {
       if (next_url){
-        setTImeout(function(){
+        setTimeout(function(){
           window.location.href = next_url
         },time)
       }
@@ -121,7 +121,7 @@ $(document).ready(function(){
             card.clear()
             console.log(next_url)
             if(next_url) {
-              successMsg = successMsg + "<br/><br/><i class='fa fa-spin fa-spiner'/> Redirecting ... "
+              successMsg = successMsg + "<br/><br/><i class='fa fa-spin fa-spiner'></i> Redirecting ... "
             }
 
             if($.alert){

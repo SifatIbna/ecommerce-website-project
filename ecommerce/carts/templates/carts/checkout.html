@@ -63,9 +63,9 @@
         <!-- enter credit card here -->
 
         <div class="string-payment-form" data-token='{{ publish_key }}'
-            data-next-url='{{ request.build_absolute_uri }}'>
+            next_url='{{ request.build_absolute_uri }}'>
         </div>
-        
+
       {% else %}
         <h1> Finalize Checkout </h1>
         <p> Cart Items : {% for product in object.cart.products.all %} {{ product }} {% if not forloop.last%}, {% endif %}{% endfor %}</p>

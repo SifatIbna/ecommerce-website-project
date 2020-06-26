@@ -24,18 +24,18 @@ from accounts.models import GuestEmail
 def cart_home(request):
     #del request.session['cart_id']
     cart_obj, new_obj = Cart.objects.new_or_get(request)
-    return render(request,"carts/home.html",{'cart':cart_obj}) 
+    return render(request,"carts/home.html",{'cart':cart_obj})
 
 
 
 def cart_update(request):
-    
+
     added = True
     product_id  = request.POST.get('id',None)
-    
+
     if product_id is not None:
         try:
-            
+
             product_obj = Product.objects.get(id=product_id)
         except Product.DoesNotExist:
             return redirect("cart:home")
@@ -61,16 +61,16 @@ def cart_update(request):
             #print(json_data["cartItemCount"])
             #return  JsonResponse({"message":"Error 404"},status_code = 400)
             return JsonResponse(json_data)
-    return redirect("cart:home")   
+    return redirect("cart:home")
 
 
 def checkout_home(request):
     cart_obj, cart_created = Cart.objects.new_or_get(request)
-    
+
     order_obj = None
     if cart_created or cart_obj.products.count() == 0:
         return redirect("cart:home")
-    
+
     login_form = LoginForm()
     guest_form = GuestForm()
     address_form = AddressForm()
@@ -79,8 +79,8 @@ def checkout_home(request):
     billing_address_id      = request.session.get("billing_address_id",None)
     shipping_address_id     = request.session.get("shipping_address_id",None)
 
- 
-    billing_profile, billing_profile_created = BillingProfile.objects.now_or_get(request)
+
+    billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
 
     address_qs = None
 
@@ -93,16 +93,16 @@ def checkout_home(request):
         if shipping_address_id:
             order_obj.shipping_address = Address.objects.get(id=shipping_address_id)
             del request.session["shipping_address_id"]
-            
+
 
         if billing_address_id:
             order_obj.billing_address = Address.objects.get(id=billing_address_id)
             del request.session["billing_address_id"]
-            
+
 
         if billing_address_id or shipping_address_id:
             order_obj.save()
-    
+
     if request.method == "POST" :
         is_done = order_obj.check_done()
         if is_done:
@@ -123,9 +123,9 @@ def checkout_home(request):
         "guest_form": guest_form,
         "address_form": address_form,
         "address_qs": address_qs,
-       
+
     }
-    
+
 
     return render(request,"carts/checkout.html", context)
 

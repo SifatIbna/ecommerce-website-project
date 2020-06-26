@@ -1,13 +1,17 @@
+from django.conf import settings
+
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 from django.utils.http import is_safe_url
 
 from .models import BillingProfile,Card
 
-# Create your views here.
 import stripe
-stripe.api_key = "sk_test_SLVaxFAeisjg7e6OSOAnzm7o00LqkQWxYC"
-STRIPE_PUB_KEY = "pk_test_9pAQ7JPwLjnznK5POcjwbFum00nm9g0F5T"
+
+STRIPE_SECRET_KEY = getattr(settings,"STRIPE_SECRET_KEY","sk_test_SLVaxFAeisjg7e6OSOAnzm7o00LqkQWxYC")
+STRIPE_PUB_KEY = getattr(settings,"STRIPE_PUB_KEY","pk_test_9pAQ7JPwLjnznK5POcjwbFum00nm9g0F5T")
+
+stripe.api_key = STRIPE_SECRET_KEY
 
 def payment_method_view(request):
 

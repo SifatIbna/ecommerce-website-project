@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 
 # Create your views here.
 
+from django.conf import settings
 from orders.models import Order
 from .models import Cart
 from products.models import Product
@@ -14,6 +15,15 @@ from addresses.models import Address
 
 from billing.models import BillingProfile
 from accounts.models import GuestEmail
+
+import stripe
+
+STRIPE_SECRET_KEY = getattr(settings,"STRIPE_SECRET_KEY","sk_test_SLVaxFAeisjg7e6OSOAnzm7o00LqkQWxYC")
+STRIPE_PUB_KEY = getattr(settings,"STRIPE_PUB_KEY","pk_test_9pAQ7JPwLjnznK5POcjwbFum00nm9g0F5T")
+
+stripe.api_key = STRIPE_SECRET_KEY
+
+
 
 ''' def cart_create(user=None):
     cart_obj = Cart.objects.create(user=None)
@@ -83,7 +93,7 @@ def checkout_home(request):
     billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
 
     address_qs = None
-
+    has_card = None
     if billing_profile is not None:
         if request.user.is_authenticated:
             address_qs = Address.objects.filter(billing_profile=billing_profile)
@@ -102,6 +112,7 @@ def checkout_home(request):
 
         if billing_address_id or shipping_address_id:
             order_obj.save()
+        has_card = billing_profile.has_card
 
     if request.method == "POST" :
         is_done = order_obj.check_done()
@@ -127,7 +138,8 @@ def checkout_home(request):
         "guest_form": guest_form,
         "address_form": address_form,
         "address_qs": address_qs,
-
+        "has_card": has_card,
+        "publish_key": STRIPE_PUB_KEY,
     }
 
 

@@ -25,6 +25,8 @@ def payment_method_view(request):
 
     next_post = request.GET.get('next')
 
+    print(next_post)
+
     if is_safe_url(next_post, request.get_host()):
         next_url = next_post
 

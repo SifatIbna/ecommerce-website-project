@@ -21,7 +21,7 @@ def checkout_address_create_view(request):
         print(request.POST['address_type'])
 
         instance = form.save(commit=False)
-        billing_profile, billing_profile_created = BillingProfile.objects.now_or_get(request)
+        billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
         if billing_profile is not None:
             address_type             = request.POST.get('address_type','shipping')
             instance.billing_profile = billing_profile
@@ -29,14 +29,14 @@ def checkout_address_create_view(request):
             instance.save()
             request.session[address_type+"_address_id"] = instance.id
 
-            
+
         else:
             print("Error Here")
             return redirect("cart:checkout")
-        
+
         if is_safe_url(redirect_path, request.get_host()):
             return redirect(redirect_path)
-        
+
     return redirect("cart:checkout")
 
 def checkout_address_reuse_view(request):
@@ -49,9 +49,9 @@ def checkout_address_reuse_view(request):
         if request.method == "POST" :
             print(request.POST)
             shipping_address = request.POST.get('shipping_address',None)
-            billing_profile, billing_profile_created = BillingProfile.objects.now_or_get(request)
+            billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
             address_type             = request.POST.get('address_type','shipping')
-            
+
             if shipping_address is not None:
                 qs = Address.objects.filter(billing_profile=billing_profile,id=shipping_address)
                 if qs.exists():
@@ -59,7 +59,5 @@ def checkout_address_reuse_view(request):
 
                 if is_safe_url(redirect_path, request.get_host()):
                     return redirect(redirect_path)
-            
-    return redirect("cart:checkout")
 
- 
+    return redirect("cart:checkout")

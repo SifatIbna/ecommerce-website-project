@@ -24,19 +24,19 @@ class OrderManager(models.Manager):
                                 status='paid',
                             )
         if qs.count() == 1:
-            
+
             obj = qs.first()
         else:
             """ old_order_qs = Order.objects.exclude(billing_profile = billing_profile).filter(cart=cart_obj,active=True)
             if old_order_qs.exists():
                 old_order_qs.update(active=False) """
-                
+
             obj = self.model.objects.create(
                         billing_profile = billing_profile,
                         cart = cart_obj
             )
             created = True
-        return obj,created 
+        return obj,created
 
 #Random, Unique order_id
 
@@ -62,7 +62,7 @@ class Order(models.Model):
         return self.order_id
 
     def update_total(self):
-        cart_total = self.cart.total 
+        cart_total = self.cart.total
         shipping_total = self.shipping_total
         new_total  =int(float(cart_total)) + int(float(shipping_total))
         self.total = new_total
@@ -97,12 +97,12 @@ def post_save_cart_total(sender,instance, created, *args, **kwargs):
     if not created:
         cart_obj = instance
         cart_total = cart_obj.total
-        cart_id = cart_obj.id 
+        cart_id = cart_obj.id
         qs = Order.objects.filter(cart__id=cart_id)
         if qs.count() == 1:
             order_obj = qs.first()
             order_obj.update_total()
-    
+
 post_save.connect(post_save_cart_total,sender=Cart)
 
 def post_save_order(sender,instance, created, *args, **kwargs):

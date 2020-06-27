@@ -13,8 +13,8 @@ class CartManager(models.Manager):
 
         ''' if cart_id is None:
             cart_obj = cart_create()
-            request.session['cart_id'] = cart_obj.id 
-            
+            request.session['cart_id'] = cart_obj.id
+
         else: '''
 
         qs = self.get_queryset().filter(id=cart_id)
@@ -22,7 +22,7 @@ class CartManager(models.Manager):
             new_obj = False
 
             cart_obj = qs.first()
-            
+
             if request.user.is_authenticated and cart_obj.user is None:
                 cart_obj.user = request.user
                 cart_obj.save()
@@ -74,5 +74,5 @@ m2m_changed.connect(m2m_pre_save_receiver, sender = Cart.products.through)
 
 def pre_save_cart_receiver(sender,instance,*args,**kwargs):
     instance.total = instance.subtotal
-    
+
 pre_save.connect(pre_save_cart_receiver, sender=Cart)

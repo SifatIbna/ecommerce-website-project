@@ -30,7 +30,7 @@ class ObjectViewed(models.Model):
         --- object_id field contains id of that content_type
 
         --- content_object is basically combination of content_type and object_id ,
-            As one of these fields is ForeignKey , That's why we are using 
+            As one of these fields is ForeignKey , That's why we are using
             GenericForeignKey
 
     '''
@@ -54,7 +54,7 @@ def object_viewed_receiver(sender, instance, request, *args, **kwargs):
                     user        = request.user,
                     content_type = c_type,
                     object_id   = instance.id,
-                    ip_address  = get_client_ip(request),                
+                    ip_address  = get_client_ip(request),
         )
 
 object_viewed_signal.connect(object_viewed_receiver)
@@ -72,7 +72,7 @@ class UserSession(models.Model):
 
     def end_session(self):
         session_key = self.session_key
-        
+
         try:
             Session.objects.get(pk=session_key).delete()
             self.ended = True
@@ -99,7 +99,7 @@ def post_save_user_change_receiver(sender, instance, created, *args, **kwargs):
             qs = UserSession.objects.filter(user=instance.user, ended=False, active=False).exclude(id=instance.id)
             for i in qs:
                 i.end_session()
-                
+
 if FORCE_INACTIVE_USER_END_SESSION:
     post_save.connect(post_save_user_change_receiver,sender=User)
 

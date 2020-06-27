@@ -121,7 +121,7 @@ $(document).ready(function(){
             card.clear()
             console.log(next_url)
             if(next_url) {
-              successMsg = successMsg + "<br/><br/><i class='fa fa-spin fa-spiner'></i> Redirecting ... "
+              successMsg = successMsg + "<br/><br/><i class='fa fa-spin fa-spinner'></i> Redirecting ..."
             }
 
             if($.alert){

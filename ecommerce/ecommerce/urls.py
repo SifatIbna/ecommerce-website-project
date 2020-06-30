@@ -25,6 +25,8 @@ from addresses.views import checkout_address_create_view,checkout_address_reuse_
 
 from billing.views import payment_method_view,payment_method_createview
 
+from marketing.views import MarketingPreferenceUpdateView
+
 from products.views import (
     product_list_view,
     ProductdetailView,
@@ -65,6 +67,8 @@ urlpatterns = [
 
     path('billing/payment-method/', payment_method_view,name='billing-payment-method'),
     path('billing/payment-method/create/', payment_method_createview,name='billing-payment-method-endpoint'),
+
+    path('settings/email/',MarketingPreferenceUpdateView.as_view() ,name='marketing_pref'),
 
 
 ]

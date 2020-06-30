@@ -10,7 +10,7 @@ $(document).ready(function(){
     publish_key : stripeFormModulePubKey,
     next_url : stripeFormModuleURL,
   }
-
+  console.log("HERE")
   var stripeTemplateHtml = stripeTemplate.render(stripeTemplateDataContext)
   stripeFormModule.html(stripeTemplateHtml)
 
@@ -129,7 +129,7 @@ $(document).ready(function(){
             } else {
               alert(successMsg)
             }
-
+            console.log(next_url)
             redirectToNext(next_url,1500)
           },
           error : function(error){
